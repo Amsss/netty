@@ -47,6 +47,7 @@ public class ChannelOperationExamples {
 
     public static void test() {
        /* System.out.println("111");*/
+        System.out.println("1");
     }
 
     /**

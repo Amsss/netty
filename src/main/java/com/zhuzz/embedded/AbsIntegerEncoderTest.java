@@ -5,6 +5,8 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 
 /**
@@ -24,10 +26,9 @@ public class AbsIntegerEncoderTest {
             new AbsIntegerEncoder());
         assertTrue(channel.writeOutbound(buf));
         assertTrue(channel.finish());
-
         // read bytes
         for (int i = 1; i < 10; i++) {
-            assertEquals(java.util.Optional.ofNullable(i), channel.readOutbound());
+            assertEquals(Optional.ofNullable(i), Optional.ofNullable(channel.readOutbound()));
         }
         assertNull(channel.readOutbound());
     }

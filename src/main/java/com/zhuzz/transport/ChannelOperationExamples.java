@@ -45,11 +45,6 @@ public class ChannelOperationExamples {
         });
     }
 
-    public static void test() {
-       /* System.out.println("111");*/
-        System.out.println("1");
-    }
-
     /**
      * Listing 4.6 Using a Channel from many threads
      * ？？？消息被保证按顺序发送

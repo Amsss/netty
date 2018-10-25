@@ -1,10 +1,13 @@
 package com.zhuzz.http;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpMessage;
-import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.cookie.CookieEncoder;
+import io.netty.handler.codec.http.cookie.ServerCookieEncoder;
+import io.netty.util.CharsetUtil;
 
 /**
  * @description: http请求
@@ -23,6 +26,15 @@ public class HttpChannelHandler extends ChannelInboundHandlerAdapter {
             request = (HttpRequest) msg;
             String rui = request.uri();
             String res = "";
+            res = rui.substring(1);
+            response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_0, HttpResponseStatus.OK,
+                    Unpooled.wrappedBuffer(res.getBytes("UTF-8")));
+        }
+        if (msg instanceof HttpContent) {
+            HttpContent content = (HttpContent) msg;
+            ByteBuf buf = content.content();
+            System.out.println(buf.toString(CharsetUtil.UTF_8));
+            buf.release();
         }
     }
 
